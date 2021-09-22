@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dofepapp-deploy
+  name: dof-deploy
 spec:
   replicas: 3
   selector:
     matchLabels: 
-      app: dofepapp
+      app: dof
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -16,20 +16,20 @@ spec:
   template:
     metadata:
       labels:
-        app: dofepapp
+        app: dof
     spec:
       containers:
       - name: app-cont
-        image: bgatanasov/dof-learning:%IMAGE-PLACEHOLDER%
+        image: bgatanasov/dof-learning:20210922.184941
         ports:
         - containerPort: 80 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: dofepapp-svc
+  name: dof-svc
   labels:
-    app: dofepapp
+    app: dof
 spec:
   type: NodePort
   ports:
@@ -37,4 +37,4 @@ spec:
     nodePort: 31000
     protocol: TCP
   selector:
-    app: dofepapp
+    app: dof
